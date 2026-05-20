@@ -1,16 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TEST</title>
+    <meta charset="UTF-8">
+    <title>Storage DApp</title>
 </head>
 <body>
-    <h1>Storage DApp Test</h1>
-    <div id="label1">Yükleniyor...</div>
+    <h1>Storage DApp</h1>
+    <div id="label1" style="font-size:20px; margin:20px;">Yükleniyor...</div>
 
+    <!-- ESKİ VERSİYON ethers.js (daha stabil) -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    
     <script>
-        // Basit test - hiç blockchain yok
-        document.getElementById("label1").innerHTML = "Merhaba! JavaScript çalışıyor!";
-        console.log("JS çalışıyor");
+        console.log("Script çalışıyor");
+        
+        const contractAddress = "0x0fC5025C764cE34df352757e82f7B5c4Df39A836";
+        const contractABI = ["function message() view returns (string)"];
+
+        async function getData() {
+            console.log("getData başladı");
+            
+            if (typeof window.ethereum === 'undefined') {
+                document.getElementById("label1").innerHTML = "MetaMask yüklü değil!";
+                console.log("MetaMask yok");
+                return;
+            }
+            
+            try {
+                // MetaMask'e bağlan
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                console.log("Hesap:", accounts[0]);
+                
+                // Provider ve contract
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const contract = new ethers.Contract(contractAddress, contractABI, provider);
+                
+                // Veriyi çek
+                const data = await contract.message();
+                console.log("Gelen data:", data);
+                
+                document.getElementById("label1").innerHTML = "✅ " + data;
+                
+            } catch (error) {
+                console.error("Hata:", error);
+                document.getElementById("label1").innerHTML = "❌ Hata: " + error.message;
+            }
+        }
+        
+        getData();
     </script>
 </body>
 </html>
