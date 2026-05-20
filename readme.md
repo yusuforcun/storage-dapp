@@ -1,6 +1,22 @@
-1. The dApp Architecture (Solidity + HTML + JS)
-Solidity (.sol): Acts as the decentralized backend. Making the message variable public automatically creates a getter function to read this data from the blockchain.
+# 📦 Storage DApp
 
-HTML (.html): The frontend skeleton. The empty <label id="label1"></label> serves as a placeholder for the blockchain data.
+A decentralized application that reads data from the Ethereum blockchain. This DApp demonstrates how to interact with a smart contract and retrieve stored information using Web3.js.
 
-JavaScript (.js): The bridge. Using window.onload, JS triggers instantly when the page loads, fetches the Solidity data, and injects it into the HTML label using innerText.
+## 🎯 Overview
+
+This simple DApp connects to a smart contract deployed on the Ethereum blockchain and reads a public message stored on-chain. It's a perfect starting point for understanding blockchain interactions.
+
+## ✨ Features
+
+- 🔗 **MetaMask Integration** - Connect your wallet seamlessly
+- 📖 **Read Blockchain Data** - Fetch stored messages from smart contract
+- 🎨 **Simple Interface** - Clean and user-friendly design
+- ⚡ **Fast & Lightweight** - Minimal dependencies
+
+## 🛠 Tech Stack
+
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Blockchain:** Ethereum
+- **Web3 Library:** ethers.js v5.7.2
+- **Wallet:** MetaMask
+
