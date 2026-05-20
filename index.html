@@ -1,53 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Storage DApp</title>
+    <title>SON DENEME</title>
 </head>
 <body>
-    <h1>Storage DApp</h1>
-    <div id="label1" style="font-size:20px; margin:20px;">Yükleniyor...</div>
+    <h1>STORAGE DAPP</h1>
+    <div id="sonuc" style="font-size:24px;margin:20px;">bekle...</div>
+    <button onclick="baglan()">BAĞLAN</button>
 
-    <!-- ESKİ VERSİYON ethers.js (daha stabil) -->
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    
     <script>
-        console.log("Script çalışıyor");
-        
-        const contractAddress = "0x0fC5025C764cE34df352757e82f7B5c4Df39A836";
-        const contractABI = ["function message() view returns (string)"];
-
-        async function getData() {
-            console.log("getData başladı");
-            
-            if (typeof window.ethereum === 'undefined') {
-                document.getElementById("label1").innerHTML = "MetaMask yüklü değil!";
-                console.log("MetaMask yok");
+        async function baglan() {
+            // SADECE METHAMASK VAR MI KONTROL ET
+            if (!window.ethereum) {
+                document.getElementById("sonuc").innerHTML = "METAMASK YOK";
                 return;
             }
             
-            try {
-                // MetaMask'e bağlan
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                console.log("Hesap:", accounts[0]);
-                
-                // Provider ve contract
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contract = new ethers.Contract(contractAddress, contractABI, provider);
-                
-                // Veriyi çek
-                const data = await contract.message();
-                console.log("Gelen data:", data);
-                
-                document.getElementById("label1").innerHTML = "✅ " + data;
-                
-            } catch (error) {
-                console.error("Hata:", error);
-                document.getElementById("label1").innerHTML = "❌ Hata: " + error.message;
-            }
+            // METAMASK BAĞLAN
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            
+            // DOĞRUDAN CONTRACT'A SOR - HARDCODE
+            const cevap = await fetch("https://api.etherscan.io/api?module=contract&action=getabi&address=0x0fC5025C764cE34df352757e82f7B5c4Df39A836");
+            
+            document.getElementById("sonuc").innerHTML = "BAĞLANTI BAŞARILI";
         }
         
-        getData();
+        baglan();
     </script>
 </body>
 </html>
